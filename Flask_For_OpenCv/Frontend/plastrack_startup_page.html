@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PlasTrack | Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #006d77;
+      --secondary: #83c5be;
+      --accent: #ffddd2;
+      --dark: #001f3f;
+      --light: #edf6f9;
+      --success: #3d9970;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .navbar {
+      background-color: var(--dark);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar.scrolled {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .navbar-brand, .nav-link {
+      color: white !important;
+    }
+
+    .nav-link {
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link.active {
+      font-weight: bold;
+      color: var(--accent) !important;
+    }
+
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .btn-get-started {
+      background-color: var(--success);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(61, 153, 112, 0.3);
+    }
+
+    .btn-get-started:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(61, 153, 112, 0.4);
+      background-color: #2e8b57;
+    }
+
+    .btn-outline-light {
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-light:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .feature-icon {
+      width: 120px;
+      height: 120px;
+      background-color: var(--secondary);
+      border-radius: 50%;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 40px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .footer {
+      background-color: var(--dark);
+      color: white;
+    }
+
+    section {
+      scroll-margin-top: 80px;
+      padding: 80px 0;
+      position: relative;
+    }
+
+    /* Hero Section */
+    header#home {
+      background: linear-gradient(135deg, rgba(0,109,119,0.9) 0%, rgba(0,31,63,0.9) 100%),
+                  url('https://lh3.googleusercontent.com/d/1YpQuMKndGADQVQifcloLwbQxwGbrFHxK') center/cover no-repeat;
+      padding: 150px 20px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header#home::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="white"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="white"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="white"></path></svg>');
+      background-size: cover;
+      background-repeat: no-repeat;
+      transform: rotate(180deg);
+    }
+
+    header#home h1 {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease;
+    }
+
+    header#home h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      animation: fadeInDown 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    header#home p {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      animation: fadeInDown 1s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    header#home .btn-get-started {
+      animation: fadeInUp 1s ease 0.6s forwards;
+      opacity: 0;
+    }
+
+    /* Features Section */
+    #features {
+      background-color: white;
+    }
+
+    #features h2 {
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    #features h2::after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      bottom: -10px;
+      left: 25%;
+      border-radius: 3px;
+    }
+
+    /* How It Works Section */
+    .card {
+      border: none;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      background-color: white;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .card i {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Testimonials */
+    #testimonials {
+      background-color: var(--light);
+    }
+
+    .carousel-item {
+      padding: 40px;
+    }
+
+    blockquote {
+      font-style: italic;
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    blockquote::before, blockquote::after {
+      content: '"';
+      font-size: 3rem;
+      color: var(--secondary);
+      opacity: 0.3;
+      position: absolute;
+    }
+
+    blockquote::before {
+      top: -20px;
+      left: -30px;
+    }
+
+    blockquote::after {
+      bottom: -40px;
+      right: -30px;
+    }
+
+    /* FAQ Section */
+    .accordion-button {
+      font-weight: 600;
+      padding: 1.25rem;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background-color: rgba(0,109,119,0.05);
+      color: var(--primary);
+    }
+
+    .accordion-button:focus {
+      box-shadow: none;
+      border-color: rgba(0,0,0,0.125);
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+    }
+
+    .slide-in-left {
+      transform: translateX(-50px);
+    }
+
+    .slide-in-right {
+      transform: translateX(50px);
+    }
+
+    .slide-in-left.show, .slide-in-right.show {
+      transform: translateX(0);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      header#home {
+        padding: 100px 20px;
+      }
+
+      header#home h1 {
+        font-size: 2.5rem;
+      }
+
+      header#home h2 {
+        font-size: 1.8rem;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+    }
+  </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="80" tabindex="0">
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-recycle me-2"></i>PlasTrack
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">FAQ</a></li>
+      </ul>
+      <div class="d-flex">
+        <a class="btn btn-outline-light me-2" href="/capstone/registration">Sign Up</a>
+        <a class="btn btn-outline-light" href="/capstone/login">Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Hero Section -->
+<header id="home" class="text-white text-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">
+      <i class="fas fa-recycle me-2"></i>PlasTrack
+    </h1>
+    <h2 class="display-4 fw-bold">Track. Recycle. Reward.</h2>
+    <p class="lead">A smarter way to manage plastic waste and earn rewards while building a sustainable future.</p>
+    <a href="#features" class="btn btn-get-started btn-lg mt-3">
+      Get Started <i class="fas fa-arrow-right ms-2"></i>
+    </a>
+  </div>
+</header>
+
+
+<!-- Features Section -->
+<section id="features" class="text-center">
+  <div class="container">
+    <h2 class="mb-5 fade-in">What We Offer</h2>
+    <div class="row">
+      <div class="col-lg-4 mb-4 fade-in slide-in-left">
+        <div class="feature-icon mx-auto">
+          <i class="fas fa-search"></i>
+        </div>
+        <h4>Track Waste</h4>
+        <p>Scan plastic bottle disposals using your account QR code.</p>
+      </div>
+      <div class="col-lg-4 mb-4 fade-in">
+        <div class="feature-icon mx-auto">
+          <i class="fas fa-coins"></i>
+        </div>
+        <h4>Earn Points</h4>
+        <p>Collect points and redeem them for school rewards.</p>
+      </div>
+      <div class="col-lg-4 mb-4 fade-in slide-in-right">
+        <div class="feature-icon mx-auto">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <h4>Go Green</h4>
+        <p>Help save the environment with every bottle recycled.</p>
+      </div>
+    </div>
+    <div class="mt-5 fade-in">
+    <p class="lead">
+        <strong><em>
+        PlasTrack empowers students to make eco-friendly choices by turning everyday recycling into a rewarding habit. Together, we build a cleaner, greener future—one bottle at a time.
+        </em></strong>
+    </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- How to Use PlasTrack -->
+<section class="bg-light">
+  <div class="container text-center" style="max-width: 900px;">
+    <h3 class="mb-4 fade-in">How to Use PlasTrack</h3>
+    <div class="px-3 px-md-0">
+      <div class="row g-4">
+        <div class="col-md-4 fade-in" style="animation-delay: 0.1s;">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <i class="fa-solid fa-user-check fa-2x mb-3"></i>
+              <h5 class="card-title">Step 1: Log In</h5>
+              <p class="card-text">Access your PlasTrack account.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in" style="animation-delay: 0.3s;">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <i class="fa-solid fa-bottle-water fa-2x mb-3"></i>
+              <h5 class="card-title">Step 2: Insert Bottle</h5>
+              <p class="card-text">Place an empty plastic bottle into the input slot of the machine.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in" style="animation-delay: 0.2s;">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <i class="fa-solid fa-qrcode fa-2x mb-3"></i>
+              <h5 class="card-title">Step 3: Enter PIN</h5>
+              <p class="card-text">Enter your User PIN to identify your account.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in" style="animation-delay: 0.4s;">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <i class="fa-solid fa-star fa-2x mb-3"></i>
+              <h5 class="card-title">Step 4: Earn Points</h5>
+              <p class="card-text">Each bottle scanned earns you points instantly!</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in" style="animation-delay: 0.5s;">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <i class="fa-solid fa-gift fa-2x mb-3"></i>
+              <h5 class="card-title">Step 5: Redeem Rewards</h5>
+              <p class="card-text">Trade your points for snacks, school supplies, or other cool items.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in" style="animation-delay: 0.6s;">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <i class="fa-solid fa-leaf fa-2x mb-3"></i>
+              <h5 class="card-title">Step 6: Repeat & Go Green!</h5>
+              <p class="card-text">Keep recycling and make a positive impact on the environment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Testimonials -->
+<section id="testimonials" class="text-center">
+  <div class="container">
+    <h2 class="mb-5 fade-in">What Students Say</h2>
+    <div id="testimonialCarousel" class="carousel slide fade-in" data-bs-ride="carousel">
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+          <blockquote class="blockquote">
+            <p class="mb-4">"PlasTrack made recycling exciting! I got a free snack for just being eco-friendly!"</p>
+            <footer class="blockquote-footer">Ella R., Grade 10</footer>
+          </blockquote>
+        </div>
+        <div class="carousel-item">
+          <blockquote class="blockquote">
+            <p class="mb-4">"It's cool how our school tracks waste with just a scan! The rewards are awesome too."</p>
+            <footer class="blockquote-footer">Miguel A., Grade 8</footer>
+          </blockquote>
+        </div>
+        <div class="carousel-item">
+          <blockquote class="blockquote">
+            <p class="mb-4">"I never thought recycling could be this fun. Our whole class is competing for the most points!"</p>
+            <footer class="blockquote-footer">Sophia T., Grade 9</footer>
+          </blockquote>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQs Section -->
+<section id="contact" class="bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fade-in">Frequently Asked Questions</h2>
+    <div class="accordion fade-in" id="faqAccordion" style="max-width: 800px; margin: auto;">
+      <div class="accordion-item border-0 mb-3 shadow-sm">
+        <h2 class="accordion-header" id="faqOne">
+          <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne">
+            How do I earn points?
+          </button>
+        </h2>
+        <div id="faqCollapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            You earn points by entering your PlasTrack 4-digit PIN each time you recycle a plastic bottle using the machine. Each bottle earns you 1 point.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item border-0 mb-3 shadow-sm">
+        <h2 class="accordion-header" id="faqTwo">
+          <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo">
+            What rewards can I redeem?
+          </button>
+        </h2>
+        <div id="faqCollapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            You can redeem points for various rewards including snacks, school supplies, gift cards, or even special privileges like front-of-line passes for school events. The available options are updated based on student preferences or decisions of the admin.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item border-0 mb-3 shadow-sm">
+        <h2 class="accordion-header" id="faqThree">
+          <button class="accordion-button collapsed rounded" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree">
+            Do I need an account to use PlasTrack?
+          </button>
+        </h2>
+        <div id="faqCollapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, students must create an account to get a unique 4-digit PIN for tracking points and accessing rewards. Accounts are free and only require basic credentials. Teachers can help set up accounts for younger students.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Call to Action -->
+<section class="py-5 text-white" style="background: linear-gradient(135deg, var(--primary), var(--dark));">
+  <div class="container text-center">
+    <h2 class="mb-4 fade-in">Ready to Start Recycling?</h2>
+    <p class="lead mb-4 fade-in" style="animation-delay: 0.2s;">Join hundreds of students already making a difference.</p>
+    <a href="/capstone/registration" class="btn btn-light btn-lg px-4 py-2 fade-in" style="animation-delay: 0.4s;">
+      Sign Up Now <i class="fas fa-arrow-right ms-2"></i>
+    </a>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="footer text-center py-5">
+  <div class="container">
+    <div class="mb-4">
+      <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f fa-lg"></i></a>
+      <a href="#" class="text-white mx-2"><i class="fab fa-twitter fa-lg"></i></a>
+      <a href="#" class="text-white mx-2"><i class="fab fa-instagram fa-lg"></i></a>
+    </div>
+    <p class="mb-2">Mandaluyong Science High School | PlasTrack 2025</p>
+    <p class="small">Making sustainability rewarding for the next generation</p>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('mainNav');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Scroll animation
+  const fadeElements = document.querySelectorAll('.fade-in');
+  const slideLeftElements = document.querySelectorAll('.slide-in-left');
+  const slideRightElements = document.querySelectorAll('.slide-in-right');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  fadeElements.forEach(el => observer.observe(el));
+  slideLeftElements.forEach(el => observer.observe(el));
+  slideRightElements.forEach(el => observer.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+</body>
+</html>
+

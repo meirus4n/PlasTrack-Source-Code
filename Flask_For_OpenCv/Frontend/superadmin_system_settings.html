@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC">
+  <title>PlasTrack | System Settings</title>
+
+  <!-- CSS Links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #006d77;
+      --secondary: #83c5be;
+      --accent: #ffddd2;
+      --dark: #001f3f;
+      --light: #edf6f9;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --superadmin: #8B008B;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      background: linear-gradient(135deg, var(--superadmin), var(--dark));
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 0.5rem 1rem;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      height: 50px;
+      margin-right: 12px;
+    }
+
+    .brand-text {
+      color: white !important;
+      font-size: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .superadmin-badge {
+      background-color: var(--accent);
+      color: var(--superadmin);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-right: 1rem;
+    }
+
+    /* Main Content */
+    .content-wrapper {
+      padding: 2rem;
+    }
+
+    /* Card Styling */
+    .card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--superadmin), var(--dark));
+      color: white;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      border-bottom: none;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* Settings Sections */
+    .settings-section {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .settings-section:last-child {
+      border-bottom: none;
+    }
+
+    .settings-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--superadmin);
+    }
+
+    .danger-zone {
+      border-left: 4px solid var(--danger);
+      background-color: rgba(220, 53, 69, 0.05);
+    }
+
+    .warning-zone {
+      border-left: 4px solid var(--warning);
+      background-color: rgba(255, 193, 7, 0.05);
+    }
+
+    /* Buttons */
+    .btn-system {
+      background-color: var(--superadmin);
+      color: white;
+      border: none;
+    }
+
+    .btn-system:hover {
+      background-color: #7a007a;
+      color: white;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        padding: 1rem;
+      }
+
+      .navbar-brand img {
+        height: 40px;
+      }
+
+      .brand-text {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container-fluid">
+      <a href="/capstone/superadmin/dashboard" class="navbar-brand">
+        <img src="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC" alt="PlasTrack Logo">
+        <span class="brand-text">PlasTrack</span>
+      </a>
+
+      <div class="d-flex align-items-center">
+        <span class="superadmin-badge">
+          <i class="fas fa-crown me-1"></i>SuperAdmin
+        </span>
+        <a href="/capstone/superadmin/dashboard" class="btn btn-light btn-sm me-2">
+          <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+        </a>
+        <a href="/capstone/logout" class="btn btn-danger btn-sm">
+          <i class="fas fa-sign-out-alt me-1"></i> Log Out
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show m-3" role="alert">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' }} me-2"></i>
+            <div>{{ message }}</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="card">
+            <div class="card-header">
+              <span><i class="fas fa-cogs me-2"></i> System Settings</span>
+            </div>
+            <div class="card-body">
+
+              <!-- Points System Settings -->
+              <div class="settings-section">
+                <h3 class="settings-title"><i class="fas fa-coins me-2"></i>Points System</h3>
+                <form method="POST" action="/capstone/superadmin/update_points_settings">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Points per Bottle</label>
+                      <input type="number" class="form-control" name="points_per_bottle" value="1" min="1" required>
+                      <div class="form-text">Number of points awarded for each recycled bottle</div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Weekly Reset Day</label>
+                      <select class="form-select" name="weekly_reset_day">
+                        <option value="0">Sunday</option>
+                        <option value="1" selected>Monday</option>
+                        <option value="2">Tuesday</option>
+                        <option value="3">Wednesday</option>
+                        <option value="4">Thursday</option>
+                        <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <button type="submit" class="btn btn-system">
+                      <i class="fas fa-save me-1"></i> Save Points Settings
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Product Management Settings -->
+              <div class="settings-section">
+                <h3 class="settings-title"><i class="fas fa-boxes me-2"></i>Product Settings</h3>
+                <form method="POST" action="/capstone/superadmin/update_product_settings">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Default Stock Quantity</label>
+                      <input type="number" class="form-control" name="default_stock" value="100" min="1" required>
+                      <div class="form-text">Default quantity when creating new products</div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Low Stock Threshold</label>
+                      <input type="number" class="form-control" name="low_stock_threshold" value="10" min="1" required>
+                      <div class="form-text">Show low stock warning when quantity falls below this number</div>
+                    </div>
+                  </div>
+                  <div class="mt-3">
+                    <button type="submit" class="btn btn-system">
+                      <i class="fas fa-save me-1"></i> Save Product Settings
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- System Maintenance -->
+              <div class="settings-section warning-zone p-3 rounded">
+                <h3 class="settings-title text-warning"><i class="fas fa-tools me-2"></i>System Maintenance</h3>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <form method="POST" action="/capstone/superadmin/backup_database" class="d-grid">
+                      <button type="submit" class="btn btn-info">
+                        <i class="fas fa-database me-1"></i> Create Database Backup
+                      </button>
+                      <div class="form-text mt-1">Create a backup of the current database state</div>
+                    </form>
+                  </div>
+                  <div class="col-md-6">
+                    <form method="POST" action="/capstone/superadmin/clear_cache" class="d-grid">
+                      <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-broom me-1"></i> Clear System Cache
+                      </button>
+                      <div class="form-text mt-1">Clear temporary files and cache data</div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Danger Zone -->
+              <div class="settings-section danger-zone p-3 rounded">
+                <h3 class="settings-title text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Danger Zone</h3>
+                <p class="text-muted mb-3">These actions are irreversible. Please proceed with caution.</p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <form method="POST" action="/capstone/superadmin/reset_system" class="d-grid">
+                      <button type="submit" class="btn btn-danger"
+                              onclick="return confirm('WARNING: This will reset ALL system data including points, purchase history, and user scores. This action cannot be undone. Continue?')">
+                        <i class="fas fa-trash-alt me-1"></i> Reset Entire System
+                      </button>
+                      <div class="form-text mt-1 text-danger">Clears all points, purchases, and resets to initial state</div>
+                    </form>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" class="btn btn-outline-danger w-100" disabled>
+                      <i class="fas fa-skull-crossbones me-1"></i> Purge Database
+                    </button>
+                    <div class="form-text mt-1 text-danger">Complete database wipe (Currently disabled)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- System Information -->
+              <div class="settings-section">
+                <h3 class="settings-title"><i class="fas fa-info-circle me-2"></i>System Information</h3>
+                <div class="row">
+                  <div class="col-md-6">
+                    <table class="table table-sm">
+                      <tr>
+                        <td><strong>System Version:</strong></td>
+                        <td>PlasTrack v2.1.0</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Database:</strong></td>
+                        <td>MySQL</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Last Backup:</strong></td>
+                        <td>Never</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-md-6">
+                    <table class="table table-sm">
+                      <tr>
+                        <td><strong>Total Users:</strong></td>
+                        <td>{{ total_users if total_users else 'N/A' }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Total Products:</strong></td>
+                        <td>{{ total_products if total_products else 'N/A' }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>System Uptime:</strong></td>
+                        <td>N/A</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Force page reload when navigating via back or forward button
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0].type === 'back_forward')) {
+      window.location.reload();
+    }
+  });
+
+  // Auto-hide flash messages after 5 seconds
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      const bsAlert = new bootstrap.Alert(alert);
+      bsAlert.close();
+    });
+  }, 5000);
+</script>
+</body>
+</html>

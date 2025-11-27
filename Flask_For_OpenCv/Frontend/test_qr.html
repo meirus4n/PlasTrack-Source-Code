@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        #qrcode {
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+        }
+        .username {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="qrcode"></div>
+    <div class="username">{{ user_info[0]['Username'] }}</div>
+
+    <script>
+        const qrData = "{{ qr_data }}";
+
+        // Detect if in phone mode (screen width <= 600px)
+        const isPhone = window.innerWidth <= 600;
+        const qrSize = isPhone ? 700 : 500; // bigger QR for phones
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: qrData,
+            width: qrSize,
+            height: qrSize
+        });
+    </script>
+</body>
+</html>
+

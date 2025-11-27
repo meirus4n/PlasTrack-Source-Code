@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PlasTrack | Notifications</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS Links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #006d77;
+            --secondary: #83c5be;
+            --accent: #ffddd2;
+            --dark: #001f3f;
+            --light: #edf6f9;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar-container {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .brand-text {
+            color: white !important;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Notifications Container */
+        .notifications-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .notifications-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .notifications-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            clip-path: ellipse(65% 100% at 50% 100%);
+        }
+
+        .notifications-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .notifications-body {
+            padding: 2.5rem 2rem;
+        }
+
+        /* Notification Cards */
+        .notification-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .notification-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .notification-content {
+            color: #495057;
+            margin-bottom: 0.75rem;
+        }
+
+        .notification-time {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .notifications-container {
+                margin: 1rem;
+            }
+
+            .notifications-body {
+                padding: 1.5rem;
+            }
+
+            .notification-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar-container sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a href="/capstone/homescreen/{{ user_id }}" class="btn btn-outline-light">
+                  <i class="fas fa-arrow-left me-2"></i> Back
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Notifications Content -->
+    <div class="notifications-container fade-in">
+        <div class="notifications-header">
+            <div class="notifications-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <h3>Notifications</h3>
+            {% if notification %}
+            <p>You have {{ notification|length }} notification(s)</p>
+            {% else %}
+            <p>You have no notifications</p>
+            {% endif %}
+        </div>
+
+        <div class="notifications-body">
+            {% if notification %}
+                {% for post in notification[::-1] %}
+                <div class="notification-card">
+                    <h5 class="notification-title">{{ post.Post_Title }}</h5>
+                    <p class="notification-content">{{ post.Post_Content }}</p>
+                    <p class="notification-time">Posted on {{ post.Post_timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <i class="far fa-bell-slash"></i>
+                    <h4>No notifications available</h4>
+                    <p>You don't have any notifications at this time.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // Force page reload when navigating via back or forward button
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0].type === 'back_forward')) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

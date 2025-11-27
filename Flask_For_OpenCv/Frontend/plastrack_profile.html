@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PlasTrack | Profile</title>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS Links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #006d77;
+            --secondary: #83c5be;
+            --accent: #ffddd2;
+            --dark: #001f3f;
+            --light: #edf6f9;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar-container {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .brand-text {
+            color: white !important;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Profile Card */
+        .profile-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            clip-path: ellipse(65% 100% at 50% 100%);
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 1px solid white;
+        }
+
+        .profile-body {
+            padding: 2.5rem 2rem;
+        }
+
+        .profile-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-field label {
+            display: block;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-field input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            font-size: 1rem;
+        }
+
+        .profile-field input:disabled {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto 0;
+        }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Purchase History Table */
+        .purchase-history {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .purchase-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .purchase-table th {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .purchase-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .purchase-table tr:hover {
+            background-color: rgba(131, 197, 190, 0.1);
+        }
+
+        .status-badge {
+            padding: 0.35rem 0.8rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .badge-completed {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            border-bottom: none;
+        }
+
+        .modal-body .form-control {
+            margin-bottom: 1rem;
+        }
+
+        .btn-save {
+            background-color: var(--success);
+            border: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .profile-container {
+                margin: 1rem;
+            }
+
+            .profile-body {
+                padding: 1.5rem;
+            }
+
+            .purchase-table {
+                font-size: 0.8rem;
+            }
+
+            .purchase-table th,
+            .purchase-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {%if user_info%}
+    {%for user in user_info%}
+    <!-- Navbar -->
+    <div class="navbar-container sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a href="/capstone/homescreen/{{ user_id }}" class="btn btn-outline-light">
+                    <i class="fas fa-arrow-left me-2"></i> Back
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown me-3">
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <span class="dropdown-header">{{ notification_count }} Notifications</span>
+                                <div class="dropdown-divider"></div>
+                                {% if notifications %}
+                                    {% for notification in notifications %}
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-envelope mr-2"></i> {{ notification.Post_Title }}
+                                        <span class="float-right text-muted text-sm">{{ notification.Post_timestamp.strftime('%Y-%m-%d') }}</span>
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    {% endfor %}
+                                {% else %}
+                                    <a href="#" class="dropdown-item">
+                                        <i class="fas fa-info-circle mr-2"></i> No notifications
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                {% endif %}
+                                <a href="/capstone/notifications/{{ user_id }}" class="dropdown-item dropdown-footer">See All Notifications</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Profile Content -->
+    <div class="profile-container fade-in">
+        <div class="profile-header">
+            <div class="profile-avatar rounded-circle">
+                <img src="https://lh3.googleusercontent.com/d/1byt46XjRVP4SH4Ib5AZUwItzTHjWuHmf?fbclid=IwY2xjawOVNiNleHRuA2FlbQIxMABicmlkETFJaHRqY1UwYkdTdk5pV1lRc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHjOwXzXhC0EsZYfOi1_SvE1o43M5TMeMEN-na4tOo-_mgPDkY0lcJCuKWOT-_aem_ceEFvOGP-NpZu9HjRcIWOg" class="img-fluid rounded-circle">
+            </div>
+            <h3>{{user.Username}}</h3>
+        </div>
+
+        <div class="profile-body">
+            <div class="profile-field">
+                <label>First Name</label>
+                <input type="text" value="{{user.U_Fname}}" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>Last Name</label>
+                <input type="text" value="{{user.U_Lname}}" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>Username</label>
+                <input type="text" value="{{user.Username}}" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>Password</label>
+                <input type="password" value="{{user.Password}}" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>User ID</label>
+                <input type="text" value="{{user.U_ID}}" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>User PIN</label>
+                <input type="text" value="{{user.U_PIN}}" disabled>
+            </div>
+
+            <button type="button" class="btn-edit" data-bs-toggle="modal" data-bs-target="#editModal">
+                <i class="fas fa-edit me-2"></i> Edit Profile
+            </button>
+
+            <!-- Purchase History Section -->
+            <div class="purchase-history">
+                <h4><i class="fas fa-history me-2"></i> Redeem History</h4>
+                <div class="table-responsive">
+                    <table class="purchase-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Points Used</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if purchase_history %}
+                            {% for purchase in purchase_history %}
+                            <tr>
+                                <td>{{ purchase.Date_Purchased.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>{{ purchase.P_Name }}</td>
+                                <td>{{ purchase.Quantity }}</td>
+                                <td>{{ purchase.TotalPointsUsed }}</td>
+
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">No purchase history found.</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action='/capstone/profile/{{ user_id }}' method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" value="{{user.U_Fname}}" name="U_Fname" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" value="{{user.U_Lname}}" name="U_Lname" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" value="{{user.Username}}" name="Username" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="text" class="form-control" value="{{user.Password}}" name="Password" required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-save">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+    {%endif%}
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // Force page reload when navigating via back or forward button
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0].type === 'back_forward')) {
+                window.location.reload();
+            }
+        });
+
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    </script>
+</body>
+</html>

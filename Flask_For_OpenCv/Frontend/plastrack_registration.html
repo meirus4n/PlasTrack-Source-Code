@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PlasTrack | Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC">
+
+    <!-- CSS Links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #006d77;
+            --secondary: #83c5be;
+            --accent: #ffddd2;
+            --dark: #001f3f;
+            --light: #edf6f9;
+            --success: #28a745;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light), white);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--dark);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .registration-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .registration-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background-color: rgba(255,255,255,0.95);
+            color: #333;
+        }
+
+        .registration-header {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .registration-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: white;
+            clip-path: ellipse(65% 100% at 50% 100%);
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 12px;
+            color: var(--accent);
+        }
+
+        .welcome-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .tagline {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .registration-body {
+            padding: 2.5rem 2rem 2rem;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3.25rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(131, 197, 190, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-register i {
+            margin-right: 10px;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 109, 119, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6c757d;
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .login-link a:hover {
+            color: var(--dark);
+            text-decoration: underline;
+        }
+
+        .privacy-check {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }
+
+        .privacy-check label {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .privacy-check a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .privacy-check a:hover {
+            color: var(--dark);
+            text-decoration: underline;
+        }
+
+        /* Privacy Modal Styles */
+        .privacy-section {
+            padding: 1.75rem 1.75rem 0;
+        }
+
+        .privacy-section h4 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .privacy-content {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            line-height: 1.6;
+            color: #333;
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+            max-height: 350px;
+            overflow-y: auto;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .privacy-content p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .privacy-content ul {
+            margin-top: 0.75rem;
+            padding-left: 1.2rem;
+        }
+
+        .privacy-content li {
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+
+        /* Smooth scrolling */
+        .privacy-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .privacy-content::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .privacy-content::-webkit-scrollbar-track {
+            background: #e9ecef;
+        }
+
+        /* Responsive text scaling */
+        @media (max-width: 768px) {
+            .privacy-content {
+                font-size: 0.9rem;
+                padding: 1.25rem;
+                line-height: 1.5;
+            }
+
+            .privacy-section {
+                padding: 1.5rem 1.5rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .privacy-content {
+                font-size: 0.85rem;
+                padding: 1rem;
+                line-height: 1.4;
+            }
+
+            .privacy-section {
+                padding: 1.25rem 1.25rem 0;
+            }
+
+            .privacy-content ul {
+                padding-left: 1rem;
+            }
+
+            .registration-container {
+                padding: 1.5rem;
+            }
+
+            .registration-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .registration-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .privacy-check {
+                white-space: normal;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .registration-container {
+                padding: 1rem;
+            }
+
+            .registration-header {
+                padding: 1.75rem 1.25rem;
+            }
+
+            .registration-body {
+                padding: 1.75rem 1.25rem;
+            }
+
+            .privacy-content {
+                font-size: 0.82rem;
+                padding: 0.875rem;
+                line-height: 1.35;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="registration-container">
+        <div class="registration-card">
+            <div class="registration-header">
+                <div class="logo">
+                    <i class="fas fa-recycle"></i>
+                    <span>PlasTrack</span>
+                </div>
+                <h2 class="welcome-text">Join Our Community</h2>
+                <p class="tagline">Start your recycling journey today</p>
+            </div>
+
+            <div class="registration-body">
+                <form action="/capstone/registration" method="POST">
+                    <div class="form-group">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-control" name="Username" placeholder="Username" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-signature input-icon"></i>
+                        <input type="text" class="form-control" name="U_Fname" placeholder="First Name" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-signature input-icon"></i>
+                        <input type="text" class="form-control" name="U_Lname" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" name="Password" placeholder="Password" required>
+                        <i class="fas fa-eye input-icon" id="togglePassword" style="left: auto; right: 1.25rem; cursor: pointer;"></i>
+                    </div>
+                    <button type="submit" class="btn-register" id="registerBtn" disabled>
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    <p>Already have an account? <a href="/capstone/login">Sign In</a></p>
+                </div>
+
+                <!-- Updated Privacy Check with checkbox literally next to text -->
+                <div class="privacy-check">
+                    <label for="agreePrivacy">
+                        <input type="checkbox" id="agreePrivacy" required>
+                        I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Data Privacy Notice and Terms of Use</a>.
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="modal-header" style="background: var(--primary); color: white;">
+                    <h5 class="modal-title" id="privacyModalLabel">
+                        <i class="fas fa-user-shield me-2"></i> Data Privacy Notice & Terms of Use
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Data Privacy Section -->
+                <div class="privacy-section">
+                    <h4><i class="fas fa-shield-alt"></i> Data Privacy Notice</h4>
+                    <div class="privacy-content">
+                        <p>PlasTrack is committed to protecting your privacy in compliance with the <strong>Philippine Data Privacy Act of 2012 (RA 10173)</strong>.</p>
+                        <p>By registering, you acknowledge that:</p>
+                        <ul>
+                            <li>We collect personal information necessary for your account and recycling tracking</li>
+                            <li>Your name and username may be displayed publicly on the PlasTrack website</li>
+                            <li>Your data will be processed securely and used only for the purposes stated</li>
+                            <li>You have rights to access and correct your personal information</li>
+                            <li>We implement appropriate security measures to protect your data</li>
+                            <li>Sensitive data (like your password) is securely stored and never shared</li>
+                        </ul>
+                        <p class="mt-2">
+                            <small>
+                                <i class="fas fa-external-link-alt me-1"></i>
+                                Read the full Data Privacy Act of 2012 (RA 10173) at:
+                                <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" style="color: var(--primary);">
+                                    privacy.gov.ph/data-privacy-act/
+                                </a>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.querySelector('input[name="Password"]');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Highlight icons when input is focused
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.querySelector('.input-icon').style.color = 'var(--secondary)';
+            });
+            input.addEventListener('blur', function() {
+                this.parentElement.querySelector('.input-icon').style.color = 'var(--primary)';
+            });
+        });
+
+        const checkbox = document.getElementById('agreePrivacy');
+        const registerBtn = document.getElementById('registerBtn');
+
+        checkbox.addEventListener('change', function () {
+            registerBtn.disabled = !this.checked;
+            registerBtn.style.opacity = this.checked ? '1' : '0.6';
+            registerBtn.style.cursor = this.checked ? 'pointer' : 'not-allowed';
+        });
+
+        // Force disabled state on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            registerBtn.disabled = true;
+            registerBtn.style.opacity = '0.6';
+            registerBtn.style.cursor = 'not-allowed';
+        });
+    </script>
+</body>
+</html>

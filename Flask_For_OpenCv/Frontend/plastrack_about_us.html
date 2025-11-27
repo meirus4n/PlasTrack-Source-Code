@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PlasTrack | Our Team</title>
+  <meta charset="utf-8">
+  <link rel="icon" href="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- CSS Links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #006d77;
+      --secondary: #83c5be;
+      --accent: #ffddd2;
+      --dark: #001f3f;
+      --light: #edf6f9;
+      --success: #3d9970;
+      --warning: #ffc107;
+      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --hover-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Navbar Styling */
+    .navbar-container {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .brand-text {
+      color: white !important;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .nav-link {
+      color: rgba(255,255,255,0.85);
+      transition: all 0.3s ease;
+      position: relative;
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+      border-radius: 8px;
+    }
+
+    .nav-link:hover {
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, rgba(0, 109, 119, 0.9), rgba(0, 31, 63, 0.9)),
+                  url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 120px 0;
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--dark);
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-title p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 30px;
+      transition: all 0.4s ease;
+      text-align: center;
+      height: 100%;
+      border: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--hover-shadow);
+    }
+
+    .team-icon {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: white;
+      font-size: 3rem;
+      transition: all 0.3s ease;
+      border: 5px solid var(--light);
+    }
+
+    .team-card:hover .team-icon {
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(0, 109, 119, 0.3);
+    }
+
+    .team-name {
+      color: var(--dark);
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .team-role {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      padding: 6px 16px;
+      background: var(--light);
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .team-description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .social-links {
+      margin-top: 25px;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: var(--light);
+      border-radius: 50%;
+      margin: 0 6px;
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 109, 119, 0.3);
+    }
+
+    /* Collaboration Section */
+    .collaboration-section {
+      background: linear-gradient(135deg, var(--light), white);
+      border-radius: 20px;
+      padding: 50px;
+      margin: 60px 0;
+      box-shadow: var(--card-shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .collaboration-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .collaboration-content h2 {
+      color: var(--dark);
+      margin-bottom: 25px;
+      font-size: 2.2rem;
+    }
+
+    .collaboration-content p {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    /* Footer Styling */
+    footer {
+      background: linear-gradient(135deg, var(--dark), var(--primary));
+      color: white;
+      padding: 50px 0 30px;
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      text-align: center;
+    }
+
+    .footer-content h4 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-content p {
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 50px;
+      padding: 12px 35px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 109, 119, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 109, 119, 0.4);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #e63946, #c1121f);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 25px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+    .delay-5 { animation-delay: 1.0s; }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .brand-text {
+        font-size: 1.3rem;
+      }
+
+      .hero-section {
+        padding: 80px 0;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .team-card {
+        padding: 30px 20px;
+      }
+
+      .team-icon {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+      }
+
+      .collaboration-section {
+        padding: 30px 20px;
+        margin: 40px 0;
+      }
+    }
+
+    /* Logo Color */
+    .navbar-brand .fa-recycle {
+      color: var(--accent) !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="navbar-container sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a href="/capstone/homescreen/{{ user_id }}" class="btn btn-outline-light">
+          <i class="fas fa-arrow-left me-2"></i> Back
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+      </div>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="container hero-content">
+      <h1 class="display-4 fw-bold mb-3">Meet Our Team</h1>
+      <p class="lead fs-4">The passionate developers behind PlasTrack</p>
+      <div class="mt-4">
+        <i class="fas fa-recycle fa-3x mb-3" style="opacity: 0.9;"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="team-section">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Development Team</h2>
+        <p>The talented individuals who brought PlasTrack to life</p>
+      </div>
+
+      <div class="row">
+        <!-- Maj Emmanuel Aquino -->
+                <div class="col-md-4 mb-4 fade-in">
+          <div class="team-card">
+            <div class="team-icon">
+              <i class="fas fa-palette"></i>
+            </div>
+            <h3 class="team-name">Maj Emmanuel Aquino</h3>
+            <div class="team-role">UI/UX Developer</div>
+            <p class="team-description">Designs intuitive user interfaces and enhances user experience while contributing to overall development and documentation.</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/maj-emmanuel-g-aquino/" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Roche Kiara Santiago -->
+        <div class="col-md-4 mb-4 fade-in delay-1">
+          <div class="team-card">
+            <div class="team-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h3 class="team-name">Roche Kiara Santiago</h3>
+            <div class="team-role">Document Specialist</div>
+            <p class="team-description">Specializes in creating comprehensive documentation and ensuring project requirements are meticulously recorded.</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/roche-kiara-santiago-9b342b376/" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Isaiah Wayne Foz -->
+        <div class="col-md-4 mb-4 fade-in delay-2">
+          <div class="team-card">
+            <div class="team-icon">
+              <i class="fas fa-server"></i>
+            </div>
+            <h3 class="team-name">Isaiah Wayne Foz</h3>
+            <div class="team-role">Backend Developer</div>
+            <p class="team-description">Architects and develops the server-side logic, database systems, and API integrations that power PlasTrack.</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/izi-foz-051419395/" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Samantha Nicole Estrada -->
+        <div class="col-md-6 mb-4 fade-in delay-3">
+          <div class="team-card">
+            <div class="team-icon">
+              <i class="fas fa-file-contract"></i>
+            </div>
+            <h3 class="team-name">Samantha Nicole Estrada</h3>
+            <div class="team-role">Document Specialist</div>
+            <p class="team-description">Focuses on technical documentation, user guides, and maintaining project documentation standards.</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/samantha-nicole-estrada-341ab8285/" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Eann Seth Parreno -->
+        <div class="col-md-6 mb-4 fade-in delay-4">
+          <div class="team-card">
+            <div class="team-icon">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <h3 class="team-name">Eann Seth Parreno</h3>
+            <div class="team-role">Hardware Integration Specialist</div>
+            <p class="team-description">Integrates ESP32 microcontrollers and hardware systems, bridging the gap between physical devices and software.</p>
+            <div class="social-links">
+              <a href="https://www.linkedin.com/in/eann-seth-parre%C3%B1o-971779380/" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" title="Email">
+                <i class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Collaboration Section -->
+      <div class="collaboration-section fade-in delay-5">
+        <div class="collaboration-content">
+          <h2>Our Collaboration</h2>
+          <p>We are a dedicated team of developers from City of Mandaluyong Science High School who came together to create PlasTrack - a reward-based plastic bottle disposal system designed to encourage proper waste management and reduce plastic pollution in our community.</p>
+          <p>Through collaboration, innovation, and a shared passion for environmental sustainability, we've developed a system that makes recycling rewarding and accessible for everyone. Each team member brings unique expertise to create a comprehensive solution that addresses both technical and user experience challenges.</p>
+          <div class="mt-4">
+            <a href="/capstone/homescreen/{{ user_id }}" class="btn btn-primary">
+              <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <h4><i class="fas fa-recycle me-2"></i>Join the Recycling Revolution</h4>
+        <p>Login to the system to view your weekly score, total score, and current items in the shop for you to redeem!</p>
+        <p class="mt-4">© 2025 PlasTrack. Making our planet greener, one bottle at a time.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Add animation class when elements come into view
+    document.addEventListener('DOMContentLoaded', function() {
+      const fadeElements = document.querySelectorAll('.fade-in');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      fadeElements.forEach(el => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(30px)';
+        observer.observe(el);
+      });
+
+      // Force page reload when navigating via back or forward button
+      window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.getEntriesByType('navigation')[0].type === 'back_forward')) {
+          window.location.reload();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC">
+  <title>PlasTrack | Super Admin Dashboard</title>
+
+  <!-- AdminLTE CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Poppins & Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --primary: #006d77;
+      --secondary: #83c5be;
+      --accent: #ffddd2;
+      --dark: #001f3f;
+      --light: #edf6f9;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --superadmin: #8B008B;
+      --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .admin-badge {
+      background-color: var(--superadmin);
+      color: white;
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 4px 10px;
+      margin-right: 10px;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .brand-link {
+      background: linear-gradient(135deg, var(--superadmin), var(--dark)) !important;
+    }
+
+    .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+      background-color: var(--superadmin) !important;
+    }
+
+    .bg-superadmin {
+      background-color: var(--superadmin) !important;
+    }
+
+    .badge-superadmin {
+      background-color: var(--superadmin);
+      color: white;
+    }
+
+    .badge-admin {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .badge-user {
+      background-color: var(--secondary);
+      color: white;
+    }
+
+    .btn-promote {
+      background-color: var(--warning);
+      color: black;
+      border: none;
+    }
+
+    .btn-demote {
+      background-color: var(--secondary);
+      color: white;
+      border: none;
+    }
+
+    .btn-create-admin {
+      background-color: var(--success);
+      color: white;
+      border: none;
+    }
+
+    .btn-delete {
+      background-color: var(--danger);
+      color: white;
+      border: none;
+    }
+
+    .superadmin-badge {
+      background-color: var(--accent);
+      color: var(--superadmin);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .stats-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--card-shadow);
+      border-radius: 12px;
+      overflow: hidden;
+      border: none;
+    }
+
+    .stats-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .stats-card .inner h3 {
+      font-weight: 700;
+      font-size: 2.2rem;
+    }
+
+    .stats-card .inner p {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .stats-card .icon {
+      opacity: 0.9;
+    }
+
+    .group-header {
+      background-color: #e9ecef !important;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .group-header:hover {
+      background-color: #dee2e6 !important;
+    }
+
+    .group-header i {
+      transition: transform 0.3s ease;
+      margin-right: 8px;
+    }
+
+    .group-header.collapsed i {
+      transform: rotate(-90deg);
+    }
+
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #8B008B;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Enhanced card styling */
+    .card {
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      border: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+      border-radius: 12px 12px 0 0 !important;
+      padding: 1rem 1.25rem;
+    }
+
+    .card-header h3 {
+      font-weight: 700;
+    }
+
+    /* Table improvements */
+    .table th {
+      border-top: none;
+      font-weight: 600;
+      color: #495057;
+      background-color: #f8f9fa;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Button improvements */
+    .btn {
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .btn-sm {
+      padding: 0.375rem 0.75rem;
+    }
+
+    .btn-group .btn {
+      border-radius: 8px;
+    }
+
+    /* Content header improvements */
+    .content-header h1 {
+      font-weight: 700;
+      color: #2c3e50;
+    }
+
+    /* Alert improvements */
+    .alert {
+      border-radius: 8px;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Modal improvements */
+    .modal-content {
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      border-radius: 12px 12px 0 0;
+      padding: 1.25rem;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    /* Form improvements */
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .form-control:focus {
+      border-color: var(--superadmin);
+      box-shadow: 0 0 0 0.2rem rgba(139, 0, 139, 0.15);
+    }
+
+    /* Badge improvements */
+    .badge {
+      border-radius: 8px;
+      font-weight: 500;
+      padding: 0.35em 0.65em;
+    }
+
+    /* Sidebar improvements */
+    .nav-sidebar .nav-item > .nav-link {
+      border-radius: 8px;
+      margin: 0.15rem 0.75rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-sidebar .nav-item > .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Preloader improvements */
+    .preloader {
+      background-color: #f8f9fc;
+    }
+
+    /* Footer improvements */
+    .main-footer {
+      background-color: #fff;
+      border-top: 1px solid #e3e6f0;
+      padding: 1rem;
+    }
+
+    /* Navbar improvements */
+    .navbar-white {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Section management */
+    .dashboard-section {
+      display: none;
+    }
+
+    .dashboard-section.active {
+      display: block;
+    }
+
+    /* Scrollable table */
+    .scrollable-table {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .scrollable-table thead th {
+      position: sticky;
+      top: 0;
+      background: #f8f9fa;
+      z-index: 10;
+    }
+
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .stats-card .inner h3 {
+        font-size: 1.8rem;
+      }
+
+      .card-header h3 {
+        font-size: 1.25rem;
+      }
+
+      .btn-group .btn {
+        margin-bottom: 0.25rem;
+      }
+    }
+
+    /* Badge color fixes */
+    .bg-purple { background-color: #6f42c1 !important; }
+    .bg-indigo { background-color: #6610f2 !important; }
+    .bg-teal { background-color: #20c997 !important; }
+    .bg-orange { background-color: #fd7e14 !important; }
+    .bg-pink { background-color: #e83e8c !important; }
+    .bg-cyan { background-color: #17a2b8 !important; }
+    .bg-lime { background-color: #28a745 !important; }
+
+    /* Super Admin Description Styles */
+    .text-superadmin {
+      color: var(--superadmin) !important;
+    }
+
+    .superadmin-description {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-left: 4px solid var(--superadmin);
+    }
+
+    /* Fix icon spacing alignment for all dashboard lists and titles */
+    .superadmin-description i,
+    .card-title i,
+    ul.list-unstyled i,
+    .nav-link i {
+      margin-right: 8px !important;
+      vertical-align: middle;
+    }
+
+    /* Edit points button styling */
+    .edit-points-btn {
+      background-color: var(--warning);
+      color: black;
+      border: none;
+    }
+
+    .edit-points-btn:hover {
+      background-color: #e0a800;
+      color: black;
+    }
+  </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC" alt="PlasTrack Logo" height="60" width="60">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto align-items-center">
+      <li class="nav-item mr-2">
+        <span class="admin-badge">Super Admin</span>
+      </li>
+      <li class="nav-item">
+        <a href="/capstone/logout" class="btn btn-danger btn-sm">
+          <i class="fas fa-sign-out-alt mr-1"></i> Log Out
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/capstone/superadmin/dashboard" class="brand-link">
+      <img src="https://lh3.googleusercontent.com/d/1OU-jZPejaMIIMweluOlIbDMTjxlg1kOC" alt="PlasTrack Logo" class="brand-image img-circle elevation-3">
+      <span class="brand-text font-weight-light">PlasTrack</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="#dashboard" class="nav-link active" data-section="dashboard">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#user-management" class="nav-link" data-section="user-management">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>User Management</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#analytics" class="nav-link" data-section="analytics">
+              <i class="nav-icon fas fa-chart-bar"></i>
+              <p>Analytics</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#system-logs" class="nav-link" data-section="system-logs">
+              <i class="nav-icon fas fa-history"></i>
+              <p>System Logs</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#system-settings" class="nav-link" data-section="system-settings">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>System Settings</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
+    <!-- Content Header -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Super Admin Dashboard</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Flash Messages -->
+        <div id="flash-messages">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' }} mr-2"></i>
+                    <div>{{ message }}</div>
+                  </div>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="dashboard-section active">
+          <!-- Super Admin Description Section -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="card superadmin-description">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h3 class="text-superadmin"><i class="fas fa-crown mr-2"></i>Super Administrator Role</h3>
+                      <p class="mb-3">As a Super Administrator, you have the highest level of access and control over the PlasTrack system. Your responsibilities include:</p>
+                      <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-user-shield text-superadmin mr-2"></i><strong>User Management:</strong> Create, promote, demote, and manage all user accounts including administrators</li>
+                        <li class="mb-2"><i class="fas fa-cogs text-superadmin mr-2"></i><strong>System Configuration:</strong> Configure points settings, product defaults, and system-wide parameters</li>
+                        <li class="mb-2"><i class="fas fa-chart-bar text-superadmin mr-2"></i><strong>Analytics & Monitoring:</strong> Access comprehensive system analytics and monitor all user activities</li>
+                        <li class="mb-2"><i class="fas fa-history text-superadmin mr-2"></i><strong>System Logs:</strong> Review complete audit trails and system activity logs</li>
+                        <li class="mb-2"><i class="fas fa-exclamation-triangle text-superadmin mr-2"></i><strong>System Maintenance:</strong> Perform system resets and manage critical system operations</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <div class="bg-light p-4 rounded">
+                        <i class="fas fa-crown fa-4x text-superadmin mb-3"></i>
+                        <h5>Full System Access</h5>
+                        <p class="small text-muted">You have complete control over all system functions and user permissions.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistics Cards -->
+          <div class="row">
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-info stats-card">
+                <div class="inner">
+                  <h3>{{ total_users }}</h3>
+                  <p>Total Users</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <!-- Removed "More info" link -->
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-warning stats-card">
+                <div class="inner">
+                  <h3>{{ total_admins }}</h3>
+                  <p>Admin Users</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-user-shield"></i>
+                </div>
+                <!-- Removed "More info" link -->
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-success stats-card">
+                <div class="inner">
+                  <h3>{{ total_purchases }}</h3>
+                  <p>Total Redemptions</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-gift"></i>
+                </div>
+                <!-- Removed "More info" link -->
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-primary stats-card">
+                <div class="inner">
+                  <h3>{{ total_points }}</h3>
+                  <p>Total Points</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-coins"></i>
+                </div>
+                <!-- Removed "More info" link -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Create Admin Form -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-user-plus mr-2"></i> Create New Admin User</h3>
+                </div>
+                <div class="card-body">
+                  <form method="POST" action="/capstone/superadmin/create_admin" class="row">
+                    <div class="col-md-3 mb-2">
+                      <input type="text" class="form-control" name="U_Fname" placeholder="First Name" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                      <input type="text" class="form-control" name="U_Lname" placeholder="Last Name" required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                      <input type="text" class="form-control" name="Username" placeholder="Username" required>
+                    </div>
+                    <div class="col-md-2 mb-2">
+                      <input type="password" class="form-control" name="Password" placeholder="Password" required>
+                    </div>
+                    <div class="col-md-1 mb-2">
+                      <button type="submit" class="btn btn-create-admin w-100">Create</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Management Section -->
+        <div id="user-management" class="dashboard-section">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-users-cog mr-2"></i> User Management (All Users)</h3>
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 200px;">
+                      <input type="text" id="userSearch" class="form-control float-right" placeholder="Search users...">
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <div class="btn-group">
+                        <button class="btn btn-outline-primary btn-sm" id="groupByRole">
+                          <i class="fas fa-layer-group mr-1"></i> Group by Role
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" id="groupByStatus">
+                          <i class="fas fa-toggle-on mr-1"></i> Group by Status
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" id="ungroup">
+                          <i class="fas fa-list mr-1"></i> Ungroup
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <span class="text-muted" id="groupInfo">Ungrouped view</span>
+                    </div>
+                  </div>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped" id="usersTable">
+                      <thead>
+                        <tr>
+                          <th data-sort="U_ID">User ID <span class="sort-indicator">↕</span></th>
+                          <th data-sort="U_Fname">Name <span class="sort-indicator">↕</span></th>
+                          <th data-sort="Username">Username <span class="sort-indicator">↕</span></th>
+                          <th data-sort="U_Role">Role <span class="sort-indicator">↕</span></th>
+                          <th data-sort="U_Status">Status <span class="sort-indicator">↕</span></th>
+                          <th data-sort="Weekly_Score">Weekly Points <span class="sort-indicator">↕</span></th>
+                          <th data-sort="Total_Score">Total Points <span class="sort-indicator">↕</span></th>
+                          <th data-sort="U_Date_Created">Date Created <span class="sort-indicator">↕</span></th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="usersTableBody">
+                        {% for user in all_users %}
+                        <tr data-user-id="{{ user.U_ID }}" data-role="{{ user.U_Role }}" data-status="{{ user.U_Status }}">
+                          <td>{{ user.U_ID }}</td>
+                          <td>{{ user.U_Fname }} {{ user.U_Lname }}</td>
+                          <td>{{ user.Username }}</td>
+                          <td>
+                            {% if user.U_Role == 2 %}
+                              <span class="badge badge-superadmin">Super Admin</span>
+                            {% elif user.U_Role == 1 %}
+                              <span class="badge badge-admin">Admin</span>
+                            {% else %}
+                              <span class="badge badge-user">User</span>
+                            {% endif %}
+                          </td>
+                          <td>
+                            <span class="badge {% if user.U_Status == 1 %}bg-success{% else %}bg-danger{% endif %}">
+                              {% if user.U_Status == 1 %}Active{% else %}Inactive{% endif %}
+                            </span>
+                          </td>
+                          <td>{{ user.Weekly_Score }}</td>
+                          <td>{{ user.Total_Score }}</td>
+                          <td>{{ user.U_Date_Created.strftime('%Y-%m-%d') }}</td>
+                          <td>
+                            <div class="btn-group btn-group-sm">
+                              <button type="button" class="btn btn-warning btn-sm edit-points-btn"
+                                      data-user-id="{{ user.U_ID }}"
+                                      data-user-name="{{ user.U_Fname }} {{ user.U_Lname }}"
+                                      title="Edit Points">
+                                <i class="fas fa-edit"></i>
+                              </button>
+
+                              {% if user.U_Role == 0 %}
+                                <form method="POST" action="/capstone/superadmin/promote_to_admin/{{ user.U_ID }}" class="d-inline">
+                                  <button type="submit" class="btn btn-promote btn-sm" title="Promote to Admin">
+                                    <i class="fas fa-level-up-alt"></i>
+                                  </button>
+                                </form>
+                              {% elif user.U_Role == 1 %}
+                                <form method="POST" action="/capstone/superadmin/demote_to_user/{{ user.U_ID }}" class="d-inline">
+                                  <button type="submit" class="btn btn-demote btn-sm" title="Demote to User">
+                                    <i class="fas fa-level-down-alt"></i>
+                                  </button>
+                                </form>
+                              {% endif %}
+
+                              {% if user.U_Role != 2 %}
+                                <form method="POST" action="/capstone/superadmin/delete_user/{{ user.U_ID }}" class="d-inline">
+                                  <button type="submit" class="btn btn-delete btn-sm" title="Delete User" onclick="return confirm('Are you sure you want to delete this user?')">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </form>
+                              {% endif %}
+                            </div>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics" class="dashboard-section">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-chart-pie mr-1"></i>Most Bought Items</h3>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container">
+                    <canvas id="mostBoughtChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-chart-line mr-1"></i>Points Distribution</h3>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container">
+                    <canvas id="pointsDistributionChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-chart-line mr-1"></i>Daily Recycling Activity (Week)</h3>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container">
+                    <canvas id="weeklyActivityChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-chart-bar mr-1"></i>Monthly Recycling Activity</h3>
+                </div>
+                <div class="card-body">
+                  <div class="chart-container">
+                    <canvas id="monthlyActivityChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Contributors & Buyers -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-trophy mr-1"></i>Top Contributors</h3>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>User</th>
+                          <th>Points</th>
+                          <th>Bottles</th>
+                        </tr>
+                      </thead>
+                      <tbody id="topContributorsBody">
+                        <tr>
+                          <td colspan="4" class="text-center text-muted">
+                            <div class="loading-spinner"></div>Loading top contributors...
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-shopping-cart mr-1"></i>Top Buyers</h3>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th>Rank</th>
+                          <th>User</th>
+                          <th>Purchases</th>
+                          <th>Total Spent</th>
+                        </tr>
+                      </thead>
+                      <tbody id="topBuyersBody">
+                        <tr>
+                          <td colspan="4" class="text-center text-muted">
+                            <div class="loading-spinner"></div>Loading top buyers...
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Logs Section -->
+        <div id="system-logs" class="dashboard-section">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white">
+                    <i class="fas fa-history mr-2"></i> System Logs (All Activities)
+                    <span class="badge badge-light ml-2">{{ recent_activities|length }} total</span>
+                  </h3>
+                  <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 200px;">
+                      <input type="text" id="systemLogsSearch" class="form-control float-right" placeholder="Search logs...">
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  {% if recent_activities %}
+                    <div class="table-responsive scrollable-table">
+                      <table class="table table-hover table-striped" id="systemLogsTable">
+                        <thead>
+                          <tr>
+                            <th>Time</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for activity in recent_activities %}
+                          <tr>
+                            <td style="width: 150px;">
+                              <small class="text-muted">{{ activity.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                            </td>
+                            <td style="width: 120px;">
+                              {% if activity.Username %}
+                                <span class="badge
+                                  {% if activity.U_Role == 2 %}badge-superadmin
+                                  {% elif activity.U_Role == 1 %}badge-admin
+                                  {% else %}badge-user{% endif %}">
+                                  {{ activity.Username }}
+                                </span>
+                              {% else %}
+                                <span class="badge badge-secondary">System</span>
+                              {% endif %}
+                            </td>
+                            <td style="width: 150px;">
+                              <span class="badge
+                                {% if activity.activity_type == 'login' %}bg-success
+                                {% elif activity.activity_type == 'logout' %}bg-secondary
+                                {% elif activity.activity_type == 'bottle_scan' %}bg-primary
+                                {% elif activity.activity_type == 'purchase' %}bg-warning text-dark
+                                {% elif activity.activity_type == 'announcement' %}bg-info
+                                {% elif activity.activity_type == 'user_management' %}bg-dark
+                                {% elif activity.activity_type == 'role_change' %}bg-purple
+                                {% elif activity.activity_type == 'points_edit' %}bg-indigo
+                                {% elif activity.activity_type == 'product_management' %}bg-teal
+                                {% elif activity.activity_type == 'system_action' %}bg-orange
+                                {% elif activity.activity_type == 'system_settings' %}bg-pink
+                                {% elif activity.activity_type == 'registration' %}bg-cyan
+                                {% elif activity.activity_type == 'profile_update' %}bg-lime
+                                {% else %}bg-dark{% endif %}">
+                                {{ activity.activity_type|replace('_', ' ')|title }}
+                              </span>
+                            </td>
+                            <td>
+                              <small>{{ activity.activity_description }}</small>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  {% else %}
+                    <p class="text-muted text-center p-3">No activities found</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Settings Section -->
+        <div id="system-settings" class="dashboard-section">
+          <div class="row">
+            <!-- Removed Points Settings Section -->
+
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header bg-superadmin">
+                  <h3 class="card-title text-white"><i class="fas fa-boxes mr-2"></i> Product Settings</h3>
+                </div>
+                <div class="card-body">
+                  <form id="productSettingsForm" action="/capstone/superadmin/update_product_settings" method="POST">
+                    <div class="form-group">
+                      <label for="default_stock" class="form-label">Default Stock Quantity:</label>
+                      <input type="number" class="form-control" id="default_stock" name="default_stock" value="{{ settings.get('default_stock', 100) }}" min="1" required>
+                      <small class="form-text text-muted">Default stock quantity for new products</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="low_stock_threshold" class="form-label">Low Stock Threshold:</label>
+                      <input type="number" class="form-control" id="low_stock_threshold" name="low_stock_threshold" value="{{ settings.get('low_stock_threshold', 10) }}" min="1" required>
+                      <small class="form-text text-muted">Show low stock warning when quantity falls below this number</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                      <i class="fas fa-save mr-2"></i>Update Product Settings
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reset System Card -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header bg-danger">
+                  <h3 class="card-title text-white"><i class="fas fa-exclamation-triangle mr-2"></i> System Reset</h3>
+                </div>
+                <div class="card-body">
+                  <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <strong>Warning:</strong> This action will reset ALL system data including points, purchase history, and user tallies. This cannot be undone.
+                  </div>
+                  <form method="POST" action="/capstone/superadmin/reset_system">
+                    <button type="submit" class="btn btn-danger w-100" onclick="return confirm('WARNING: This will reset ALL system data including points and purchase history. Continue?')">
+                      <i class="fas fa-trash-alt mr-2"></i>Reset System
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Edit Points Modal -->
+  <div class="modal fade" id="editPointsModal" tabindex="-1" aria-labelledby="editPointsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-superadmin">
+          <h5 class="modal-title text-white" id="editPointsModalLabel"><i class="fas fa-edit mr-2"></i>Edit User Points</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editPointsForm" method="POST">
+            <input type="hidden" id="editUserId" name="user_id">
+            <div class="form-group">
+              <label for="weeklyPoints" class="form-label">Weekly Points</label>
+              <input type="number" class="form-control" id="weeklyPoints" name="weekly_points" min="0" required>
+              <small class="form-text text-muted">Current weekly points (from running_tally)</small>
+            </div>
+            <div class="form-group">
+              <label for="totalPoints" class="form-label">Total Points</label>
+              <input type="number" class="form-control" id="totalPoints" name="total_points" min="0" required>
+              <small class="form-text text-muted">Lifetime total points (from total_tally)</small>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" form="editPointsForm" class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2024 PlasTrack.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
+    </div>
+  </footer>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    let currentGrouping = null;
+    let currentSort = { column: null, direction: 'asc' };
+
+    // Section navigation
+    $('.nav-sidebar a').click(function(e) {
+        e.preventDefault();
+
+        // Update active nav link
+        $('.nav-sidebar a').removeClass('active');
+        $(this).addClass('active');
+
+        // Show selected section
+        const section = $(this).data('section');
+        $('.dashboard-section').removeClass('active');
+        $(`#${section}`).addClass('active');
+
+        // Update page title
+        $('.content-header h1').text($(this).find('p').text());
+    });
+
+    // Initialize Charts
+    initializeCharts();
+
+    // Search functionality
+    $("#userSearch").on("keyup", function() {
+        const value = $(this).val().toLowerCase();
+        $("#usersTableBody tr").filter(function() {
+            if ($(this).hasClass('group-header')) return true;
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+
+    // System logs search
+    $("#systemLogsSearch").on("keyup", function() {
+        const value = $(this).val().toLowerCase();
+        $("#systemLogsTable tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+
+    // Grouping functionality
+    $("#groupByRole").click(function() { groupUsers('role'); });
+    $("#groupByStatus").click(function() { groupUsers('status'); });
+    $("#ungroup").click(function() { ungroupUsers(); });
+
+    // Sorting functionality
+    $("th[data-sort]").click(function() {
+        const column = $(this).data('sort');
+        sortTable(column);
+    });
+
+    // Point Editing Functionality - FIXED to use table values directly
+    $(document).on('click', '.edit-points-btn', function() {
+        console.log('Edit points button clicked for user ID:', $(this).data('user-id'));
+
+        const userId = $(this).data('user-id');
+        const userName = $(this).data('user-name');
+
+        // Get values directly from the table (columns 5 and 6 are Weekly_Score and Total_Score)
+        const tableRow = $(this).closest('tr');
+        const tableWeekly = tableRow.find('td:eq(5)').text().trim();
+        const tableTotal = tableRow.find('td:eq(6)').text().trim();
+
+        console.log('Table values - Weekly:', tableWeekly, 'Total:', tableTotal);
+
+        $('#editPointsModalLabel').html(`<i class="fas fa-edit mr-2"></i>Edit Points for ${userName}`);
+        $('#editPointsForm').attr('action', `/capstone/superadmin/edit_user_points/${userId}`);
+        $('#editUserId').val(userId);
+
+        // Use the table values directly
+        $('#weeklyPoints').val(tableWeekly);
+        $('#totalPoints').val(tableTotal);
+
+        $('#editPointsModal').modal('show');
+    });
+
+    // Product Settings Form Submission
+    $('#productSettingsForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                alert('Product settings updated successfully!');
+                location.reload();
+            },
+            error: function() {
+                alert('Error updating product settings');
+            }
+        });
+    });
+
+    function initializeCharts() {
+        // Load all chart data
+        Promise.all([
+            $.get('/capstone/superadmin/analytics/most_bought_items'),
+            $.get('/capstone/superadmin/analytics/points_distribution'),
+            $.get('/capstone/superadmin/analytics/weekly_activity'),
+            $.get('/capstone/superadmin/analytics/monthly_activity'),
+            $.get('/capstone/superadmin/analytics/top_contributors'),
+            $.get('/capstone/superadmin/analytics/top_buyers')
+        ]).then(function(results) {
+            const [mostBought, pointsDistribution, weeklyActivity, monthlyActivity, topContributors, topBuyers] = results;
+
+            // Most Bought Items Chart (Pie Chart)
+            if (!mostBought.error && mostBought.length > 0) {
+                const mostBoughtCtx = document.getElementById('mostBoughtChart').getContext('2d');
+                new Chart(mostBoughtCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: mostBought.map(item => item.P_Name),
+                        datasets: [{
+                            data: mostBought.map(item => item.Total_Sold),
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Fallback if no data
+                const mostBoughtCtx = document.getElementById('mostBoughtChart').getContext('2d');
+                new Chart(mostBoughtCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['No Data Available'],
+                        datasets: [{
+                            data: [1],
+                            backgroundColor: ['#C9CBCF']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Points Distribution Chart (Line Graph)
+            if (!pointsDistribution.error && pointsDistribution.labels && pointsDistribution.labels.length > 0) {
+                const pointsCtx = document.getElementById('pointsDistributionChart').getContext('2d');
+                new Chart(pointsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: pointsDistribution.labels,
+                        datasets: [{
+                            label: 'Points Earned',
+                            data: pointsDistribution.data,
+                            borderColor: '#8B008B',
+                            backgroundColor: 'rgba(139, 0, 139, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Fallback if no data
+                const pointsCtx = document.getElementById('pointsDistributionChart').getContext('2d');
+                new Chart(pointsCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Points Earned',
+                            data: [0, 0, 0, 0, 0, 0],
+                            borderColor: '#8B008B',
+                            backgroundColor: 'rgba(139, 0, 139, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Weekly Activity Chart
+            if (!weeklyActivity.error && weeklyActivity.labels && weeklyActivity.labels.length > 0) {
+                const weeklyCtx = document.getElementById('weeklyActivityChart').getContext('2d');
+                new Chart(weeklyCtx, {
+                    type: 'line',
+                    data: {
+                        labels: weeklyActivity.labels,
+                        datasets: [{
+                            label: 'Bottles Recycled',
+                            data: weeklyActivity.data,
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Fallback if no data
+                const weeklyCtx = document.getElementById('weeklyActivityChart').getContext('2d');
+                new Chart(weeklyCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Bottles Recycled',
+                            data: [0, 0, 0, 0, 0, 0, 0],
+                            borderColor: '#28a745',
+                            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Monthly Activity Chart
+            if (!monthlyActivity.error && monthlyActivity.labels && monthlyActivity.labels.length > 0) {
+                const monthlyCtx = document.getElementById('monthlyActivityChart').getContext('2d');
+                new Chart(monthlyCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: monthlyActivity.labels,
+                        datasets: [{
+                            label: 'Bottles Recycled',
+                            data: monthlyActivity.data,
+                            backgroundColor: '#17a2b8'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            } else {
+                // Fallback if no data
+                const monthlyCtx = document.getElementById('monthlyActivityChart').getContext('2d');
+                new Chart(monthlyCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                        datasets: [{
+                            label: 'Bottles Recycled',
+                            data: [0, 0, 0, 0],
+                            backgroundColor: '#17a2b8'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Populate Top Contributors
+            if (!topContributors.error && topContributors.length > 0) {
+                const contributorsBody = $('#topContributorsBody');
+                contributorsBody.empty();
+
+                topContributors.forEach((contributor, index) => {
+                    contributorsBody.append(`
+                        <tr>
+                            <td>#${index + 1}</td>
+                            <td>${contributor.U_Fname} ${contributor.U_Lname}</td>
+                            <td>${contributor.Total_Points}</td>
+                            <td>${contributor.Bottles_Recycled}</td>
+                        </tr>
+                    `);
+                });
+            } else {
+                $('#topContributorsBody').html('<tr><td colspan="4" class="text-center text-muted">No data available</td></tr>');
+            }
+
+            // Populate Top Buyers
+            if (!topBuyers.error && topBuyers.length > 0) {
+                const buyersBody = $('#topBuyersBody');
+                buyersBody.empty();
+
+                topBuyers.forEach((buyer, index) => {
+                    buyersBody.append(`
+                        <tr>
+                            <td>#${index + 1}</td>
+                            <td>${buyer.U_Fname} ${buyer.U_Lname}</td>
+                            <td>${buyer.Total_Purchases}</td>
+                            <td>${buyer.Total_Spent || 0}</td>
+                        </tr>
+                    `);
+                });
+            } else {
+                $('#topBuyersBody').html('<tr><td colspan="4" class="text-center text-muted">No data available</td></tr>');
+            }
+        }).catch(function(error) {
+            console.error('Error loading analytics data:', error);
+            // Fallback to empty data with message
+            $('#topContributorsBody').html('<tr><td colspan="4" class="text-center text-muted">Error loading data</td></tr>');
+            $('#topBuyersBody').html('<tr><td colspan="4" class="text-center text-muted">Error loading data</td></tr>');
+        });
+    }
+
+    function groupUsers(groupBy) {
+        currentGrouping = groupBy;
+        const tbody = $('#usersTableBody');
+        const rows = tbody.find('tr:not(.group-header)').get();
+
+        tbody.empty();
+
+        if (groupBy === 'role') {
+            const groups = {
+                2: { name: 'SuperAdmin', rows: [] },
+                1: { name: 'Admin', rows: [] },
+                0: { name: 'User', rows: [] }
+            };
+
+            rows.forEach(row => {
+                const role = $(row).data('role');
+                if (groups[role]) {
+                    groups[role].rows.push(row);
+                }
+            });
+
+            Object.keys(groups).forEach(role => {
+                if (groups[role].rows.length > 0) {
+                    const groupHeader = $(`
+                        <tr class="group-header">
+                            <td colspan="9">
+                                <i class="fas fa-chevron-down"></i>
+                                ${groups[role].name} (${groups[role].rows.length} users)
+                            </td>
+                        </tr>
+                    `);
+                    tbody.append(groupHeader);
+                    groups[role].rows.forEach(row => tbody.append(row));
+                }
+            });
+
+            $('#groupInfo').text('Grouped by Role');
+        } else if (groupBy === 'status') {
+            const groups = {
+                1: { name: 'Active Users', rows: [] },
+                0: { name: 'Inactive Users', rows: [] }
+            };
+
+            rows.forEach(row => {
+                const status = $(row).data('status');
+                if (groups[status] !== undefined) {
+                    groups[status].rows.push(row);
+                }
+            });
+
+            Object.keys(groups).forEach(status => {
+                if (groups[status].rows.length > 0) {
+                    const groupHeader = $(`
+                        <tr class="group-header">
+                            <td colspan="9">
+                                <i class="fas fa-chevron-down"></i>
+                                ${groups[status].name} (${groups[status].rows.length} users)
+                            </td>
+                        </tr>
+                    `);
+                    tbody.append(groupHeader);
+                    groups[status].rows.forEach(row => tbody.append(row));
+                }
+            });
+
+            $('#groupInfo').text('Grouped by Status');
+        }
+    }
+
+    function ungroupUsers() {
+        currentGrouping = null;
+        const tbody = $('#usersTableBody');
+        const rows = tbody.find('tr:not(.group-header)').get();
+
+        tbody.empty();
+        rows.forEach(row => tbody.append(row));
+        $('#groupInfo').text('Ungrouped view');
+    }
+
+    function sortTable(column) {
+        const tbody = $('#usersTableBody');
+        const rows = tbody.find('tr:not(.group-header)').get();
+
+        if (currentSort.column === column) {
+            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+            currentSort.column = column;
+            currentSort.direction = 'asc';
+        }
+
+        $('.sort-indicator').text('↕');
+        $(`th[data-sort="${column}"] .sort-indicator`).text(currentSort.direction === 'asc' ? '↑' : '↓');
+
+        rows.sort((a, b) => {
+            let aValue, bValue;
+
+            if (column === 'U_Role') {
+                aValue = $(a).data('role');
+                bValue = $(b).data('role');
+            } else if (column === 'U_Status') {
+                aValue = $(a).data('status');
+                bValue = $(b).data('status');
+            } else {
+                const columnIndex = getColumnIndex(column);
+                aValue = $(a).find(`td:eq(${columnIndex})`).text().trim();
+                bValue = $(b).find(`td:eq(${columnIndex})`).text().trim();
+            }
+
+            if (column === 'U_ID' || column === 'Weekly_Score' || column === 'Total_Score') {
+                aValue = parseInt(aValue) || 0;
+                bValue = parseInt(bValue) || 0;
+            }
+
+            if (aValue < bValue) return currentSort.direction === 'asc' ? -1 : 1;
+            if (aValue > bValue) return currentSort.direction === 'asc' ? 1 : -1;
+            return 0;
+        });
+
+        if (currentGrouping) {
+            groupUsers(currentGrouping);
+        } else {
+            tbody.empty();
+            rows.forEach(row => tbody.append(row));
+        }
+    }
+
+    function getColumnIndex(columnName) {
+        const headers = $('th[data-sort]');
+        for (let i = 0; i < headers.length; i++) {
+            if ($(headers[i]).data('sort') === columnName) {
+                return i;
+            }
+        }
+        return 0;
+    }
+});
+</script>
+</body>
+</html>
